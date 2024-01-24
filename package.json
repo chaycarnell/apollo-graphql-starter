@@ -10,8 +10,8 @@
     "lint": "tsc --noEmit && eslint . --ext .ts,.tsx --fix",
     "lint:fix": "npm run lint -- --fix",
     "sort": "npx sort-package-json",
-    "start": "node ./dist/apolloServer.js",
-    "start:dev": "tsx watch ./src/apolloServer.ts"
+    "start": "node --env-file=.env ./dist/apolloServer.js",
+    "start:dev": "tsx watch --env-file=.env ./src/apolloServer.ts"
   },
   "dependencies": {
     "@apollo/server": "4.10.0",
