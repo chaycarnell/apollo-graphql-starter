@@ -1,13 +1,15 @@
-const mockProducts = [
-  { productId: '0001', productName: 'Apple' },
-  { productId: '0002', productName: 'Pear' },
-  { productId: '0003', productName: 'Orange' },
-];
+import { GraphQLResolveInfo } from 'graphql';
 
-const productsResolver = {
+import { CustomContext } from '../../types/interfaces';
+import { mockProducts } from './mock';
+
+export const resolver = {
   Query: {
-    products: () => mockProducts,
+    products: (
+      _parent: undefined,
+      _args: undefined,
+      _context: CustomContext,
+      _resolveInfo: GraphQLResolveInfo,
+    ) => mockProducts,
   },
 };
-
-exports.resolver = productsResolver;
