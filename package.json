@@ -9,10 +9,10 @@
     "build": "tsc --project tsconfig.build.json",
     "lint": "tsc --noEmit && eslint . --ext .ts,.tsx --fix",
     "lint:fix": "npm run lint -- --fix",
+    "prepare": "husky",
     "sort": "npx sort-package-json",
     "start": "node --env-file=.env ./dist/apolloServer.js",
-    "start:dev": "tsx watch --env-file=.env ./src/apolloServer.ts",
-    "prepare": "husky"
+    "start:dev": "tsx watch --env-file=.env ./src/apolloServer.ts"
   },
   "dependencies": {
     "@apollo/server": "4.10.0",
