@@ -6,11 +6,11 @@ import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { GraphQLFormattedError } from 'graphql';
 import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 
-import errorHandler from './utils/errorHandler';
+import loggerPlugin from './plugins/loggerPlugin';
+import contextBuilder from './utils/apolloContextBuilder';
+import errorHandler from './utils/apolloErrorHandler';
 import logger from './utils/logger';
-import loggerPlugin from './utils/loggerPlugin';
 
 const typeDefs = loadFilesSync(path.join(__dirname, '../schemas/**/*.graphql'));
 const resolvers = loadFilesSync(
@@ -40,15 +40,7 @@ const server = new ApolloServer({
 
 (async () => {
   const { url } = await startStandaloneServer(server, {
-    context: async ({ req }) => {
-      // Generate a UUID for log tracing through server
-      const logTraceId = uuidv4();
-      // Mock example of adding a user to request context if authorization header present
-      // For production suggest to use GraphQL Shield in combination with JWT validation/decode utils
-      const user = (req.headers.authorization && { id: '1000' }) || undefined;
-      // Apply context to request
-      return { user, logTraceId };
-    },
+    context: contextBuilder,
     listen: { port },
   });
   logger.info(`Server ready at ${url}`);

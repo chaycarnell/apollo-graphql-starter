@@ -1,11 +1,8 @@
-import { ApolloServerPlugin, BaseContext } from '@apollo/server';
-import { GraphQLError } from 'graphql';
+import { ApolloServerPlugin } from '@apollo/server';
 
-import logger from './logger';
+import { CustomContext } from '../types/interfaces';
+import logger from '../utils/logger';
 
-export interface CustomContext extends BaseContext {
-  logTraceId: string;
-}
 export const LoggingPlugin = (): ApolloServerPlugin<CustomContext> => ({
   async requestDidStart({ contextValue, request }) {
     // Do not log introspection requests
@@ -25,11 +22,6 @@ export const LoggingPlugin = (): ApolloServerPlugin<CustomContext> => ({
       },
       // Handle logging errors encountered
       async didEncounterErrors({ errors }) {
-        // Strip lengthy stacktrace from each error
-        errors.forEach(
-          (error: GraphQLError) =>
-            error?.extensions?.exception && delete error.extensions.exception,
-        );
         logger.error(
           `Error encountered: LogTraceId ${contextValue.logTraceId} | Operation ${request.operationName} - Details:\n`,
           errors,
