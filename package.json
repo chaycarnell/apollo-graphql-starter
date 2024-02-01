@@ -7,6 +7,7 @@
   "author": "Chay Carnell",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
+    "generate:types": "graphql-codegen && npm run lint:fix",
     "lint": "tsc --noEmit && eslint . --ext .ts,.tsx --fix",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "husky",
@@ -23,7 +24,10 @@
     "winston": "3.11.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.10",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "@types/node": "^20.11.14",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",

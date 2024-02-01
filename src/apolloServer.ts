@@ -8,6 +8,7 @@ import { GraphQLFormattedError } from 'graphql';
 import path from 'path';
 
 import loggerPlugin from './plugins/loggerPlugin';
+import { Resolvers } from './types/graphql-generated';
 import contextBuilder from './utils/apolloContextBuilder';
 import errorHandler from './utils/apolloErrorHandler';
 import logger from './utils/logger';
@@ -15,7 +16,7 @@ import logger from './utils/logger';
 const typeDefs = loadFilesSync(path.join(__dirname, '../schemas/**/*.graphql'));
 const resolvers = loadFilesSync(
   path.join(__dirname, 'schemas/**/*.resolver.*'),
-);
+) as Resolvers;
 
 const schema = makeExecutableSchema({
   typeDefs,

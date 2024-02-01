@@ -1,15 +1,8 @@
-import { GraphQLResolveInfo } from 'graphql';
-
-import { CustomContext } from '../../types/interfaces';
+import { Resolvers } from '../../types/graphql-generated';
 import { mockProducts } from './mock';
 
-export const resolver = {
+export const resolver: Resolvers = {
   Query: {
-    products: (
-      _parent: undefined,
-      _args: undefined,
-      _context: CustomContext,
-      _resolveInfo: GraphQLResolveInfo,
-    ) => mockProducts,
+    products: (_parent, _args, _context, _resolveInfo) => mockProducts,
   },
 };
